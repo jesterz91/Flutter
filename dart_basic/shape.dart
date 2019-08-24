@@ -10,13 +10,6 @@ abstract class Shape {
   num get area;
 }
 
-// top-level 함수
-Shape shapeFactory(String type) {
-  if (type == 'circle') return Circle(2);
-  if (type == 'square') return Square(2);
-  throw 'Can\'t create $type.';
-}
-
 class Circle implements Shape {
   final num radius;
   Circle(this.radius);
@@ -29,10 +22,20 @@ class Square implements Shape {
   num get area => pow(side, 2);
 }
 
-main() {
-  //final circle = Circle(2);
-  //final square = Square(2);
-  
+// 모든 클래스는 interface 를 정의하기 때문에 키워드가 없음.
+class CircleMock implements Circle {
+  num area;
+  num radius;
+}
+
+// top-level 함수
+Shape shapeFactory(String type) {
+  if (type == 'circle') return Circle(2);
+  if (type == 'square') return Square(2);
+  throw 'Can\'t create $type.';
+}
+
+main() {  
   final circle = shapeFactory('circle');
   final square = Shape('square');  
   
