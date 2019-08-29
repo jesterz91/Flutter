@@ -37,12 +37,19 @@ class _HelloPageSate extends State<HelloPage> {
         ),
         body: Center(
             child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(_message, style: TextStyle(fontSize: 30)),
-            Text('$_counter', style: TextStyle(fontSize: 30)),
-          ],
-        )));
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Text(_message, style: TextStyle(fontSize: 30)),
+                Text('$_counter', style: TextStyle(fontSize: 30)),
+                RaisedButton(
+                  child: Text('화면 이동'),
+                  onPressed: () => {
+                    MaterialPageRoute(builder: (context) {
+                      
+                    })
+                  })
+              ],
+            )));
   }
 
   void _changeMessage() {
