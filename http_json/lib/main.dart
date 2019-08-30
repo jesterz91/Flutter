@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:http_json/Picture.dart';
+import 'package:http_json/picture.dart';
 import 'dart:convert';
 
 void main() => runApp(MyApp());
@@ -63,7 +63,7 @@ class _PhotoPageState extends State<PhotoPage> {
             return Card(child: Column(
               children: <Widget>[
                 Text(photo.author),
-                Image.network("https://picsum.photos/id/${photo.id}/300/300")
+                Image.network("https://picsum.photos/id/${photo.id}/150/150")
               ],
             ));
           }),
