@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:instagram_clone/create_page.dart';
 
 class SearchPage extends StatefulWidget {
   @override
@@ -11,7 +12,9 @@ class _SearchPageState extends State<SearchPage> {
     return Scaffold(
       body: _buildGridView(),
       floatingActionButton: FloatingActionButton(
-        onPressed: null,
+        onPressed: () {
+          Navigator.push(context, MaterialPageRoute(builder: (context) => CreatePage()));
+        },
         backgroundColor: Colors.blue,
         child: Icon(Icons.create),
       ),
@@ -31,8 +34,11 @@ class _SearchPageState extends State<SearchPage> {
           return _buildListItem(context, index);
         });
   }
-  
+
   Widget _buildListItem(BuildContext context, int index) {
-    return Image.network("https://avatars1.githubusercontent.com/u/66577?s=460&v=4", fit: BoxFit.cover,);
+    return Image.network(
+      "https://avatars1.githubusercontent.com/u/66577?s=460&v=4",
+      fit: BoxFit.cover,
+    );
   }
 }
