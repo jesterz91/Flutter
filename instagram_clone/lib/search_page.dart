@@ -10,6 +10,7 @@ class _SearchPageState extends State<SearchPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(title: Text("Search"),),
       body: _buildGridView(),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
