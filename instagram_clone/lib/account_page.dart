@@ -4,6 +4,10 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:instagram_clone/login_page.dart';
 
 class AccountPage extends StatefulWidget {
+  final FirebaseUser user;
+
+  AccountPage(this.user);
+
   @override
   _AccountPageState createState() => _AccountPageState();
 }
@@ -24,8 +28,12 @@ class _AccountPageState extends State<AccountPage> {
         IconButton(
           icon: Icon(Icons.exit_to_app),
           onPressed: () {
-            FirebaseAuth.instance.signOut();
-            GoogleSignIn().signOut();
+            FirebaseAuth.instance.signOut().then((value) {
+              GoogleSignIn().signOut().then((value) {
+                print("signOut");
+                Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => LoginPage()));
+              });
+            });
           },
         )
       ],
@@ -47,8 +55,7 @@ class _AccountPageState extends State<AccountPage> {
                     width: 80.0,
                     height: 80.0,
                     child: CircleAvatar(
-                      backgroundImage: NetworkImage(
-                          "https://avatars3.githubusercontent.com/u/25954406?s=460&v=4"),
+                      backgroundImage: NetworkImage(widget.user.photoUrl),
                     ),
                   ),
                   Container(
@@ -68,7 +75,7 @@ class _AccountPageState extends State<AccountPage> {
               ),
               Padding(padding: EdgeInsets.all(8.0)),
               Text(
-                "이름",
+                widget.user.displayName,
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
               )
             ],
