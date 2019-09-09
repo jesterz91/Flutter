@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/counter_bloc.dart';
 import 'package:flutter_app/listview_page.dart';
 import 'package:rxdart/rxdart.dart';
 
 void main() => runApp(MyApp());
+
+final counterBloc = CounterBloc();
 
 class MyApp extends StatelessWidget {
   @override
@@ -28,14 +31,14 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
 
-  final _counterSubject = BehaviorSubject<int>();
-  int _counter = 0;
+//  final _counterSubject = BehaviorSubject<int>();
+//  int _counter = 0;
 
-  @override
-  void dispose() {
-    super.dispose();
-    _counterSubject.close();
-  }
+//  @override
+//  void dispose() {
+//    super.dispose();
+//    _counterSubject.close();
+//  }
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +52,7 @@ class _MyHomePageState extends State<MyHomePage> {
       drawer: _buildDrawer(context),
       body: _buildBody(context),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => _counterSubject.add(++_counter),
+        onPressed: () => counterBloc.addCounter(),
         tooltip: 'Increment',
         child: Icon(Icons.add),
       ),
@@ -63,7 +66,7 @@ class _MyHomePageState extends State<MyHomePage> {
         children: <Widget>[
           Text('버튼 클릭 수',),
           StreamBuilder<int>(
-            stream: _counterSubject.stream,
+            stream: counterBloc.count$,
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 return Text(
@@ -71,7 +74,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   style: Theme.of(context).textTheme.display1,
                 );
               }
-              return Text('$_counter', style: Theme.of(context).textTheme.display1,);
+              return CircularProgressIndicator();
             }
           ),
         ],
