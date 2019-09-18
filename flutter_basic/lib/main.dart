@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/counter_bloc.dart';
-import 'package:flutter_app/listview_page.dart';
-import 'package:rxdart/rxdart.dart';
+import 'package:flutter_app/bloc/idol_bloc.dart';
+import 'package:flutter_app/bmi_page.dart';
+import 'package:flutter_app/bloc/counter_bloc.dart';
+import 'package:flutter_app/idol_page.dart';
 
 void main() => runApp(MyApp());
 
 final counterBloc = CounterBloc();
+final idolBloc = IdolBloc();
 
 class MyApp extends StatelessWidget {
   @override
@@ -31,22 +33,23 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
 
-//  final _counterSubject = BehaviorSubject<int>();
-//  int _counter = 0;
-
-//  @override
-//  void dispose() {
-//    super.dispose();
-//    _counterSubject.close();
-//  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
         actions: <Widget>[
-          IconButton(icon: Icon(Icons.settings), onPressed: () => print("setting")),
+          IconButton(
+              icon: Icon(Icons.settings),
+              onPressed: () => print("setting")
+          ),
+          PopupMenuButton(
+            itemBuilder: (BuildContext context) => [
+                PopupMenuItem(child: Text("menu4"), value: 4,),
+                PopupMenuItem(child: Text("menu5"), value: 5,),
+            ],
+            onSelected: (value) => print(value),
+          ),
         ],
       ),
       drawer: _buildDrawer(context),
@@ -66,17 +69,13 @@ class _MyHomePageState extends State<MyHomePage> {
         children: <Widget>[
           Text('버튼 클릭 수',),
           StreamBuilder<int>(
-            stream: counterBloc.count$,
-            builder: (context, snapshot) {
-              if (snapshot.hasData) {
-                return Text(
-                  '${snapshot.data}',
-                  style: Theme.of(context).textTheme.display1,
-                );
-              }
-              return CircularProgressIndicator();
-            }
-          ),
+              stream: counterBloc.count$,
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  return Text('${snapshot.data}', style: Theme.of(context).textTheme.display1,);
+                }
+                return CircularProgressIndicator();
+              }),
         ],
       ),
     );
@@ -101,31 +100,33 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 ),
                 Padding(padding: EdgeInsets.all(4)),
-                Text("Nick Name", style: TextStyle(color: Colors.white),),
+                Text(
+                  "Dev.Lee",
+                  style: TextStyle(color: Colors.white),
+                ),
                 Padding(padding: EdgeInsets.all(4)),
-                Text("E-mail", style: TextStyle(color: Colors.white),),
+                Text(
+                  "email@gamil.com",
+                  style: TextStyle(color: Colors.white),
+                ),
               ],
             ),
             decoration: BoxDecoration(color: Colors.blue),
           ),
           ListTile(
-            title: Text("리스트"),
-            leading: Icon(
-              Icons.list,
-            ),
+            title: Text("아이돌"),
+            leading: Icon(Icons.favorite,),
             onTap: () {
               Navigator.of(context).pop();
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (BuildContext context) => ListViewPage()));
+              Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => IdolPage()));
             },
           ),
           ListTile(
-            title: Text("메뉴2"),
-            leading: Icon(
-              Icons.star,
-            ),
+            title: Text("BMI"),
+            leading: Icon(Icons.person,),
             onTap: () {
               Navigator.of(context).pop();
+              Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => BmiPage()));
             },
           ),
           ListTile(
