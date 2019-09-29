@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:persistence/login_page.dart';
+import 'package:persistence/screen/login_page.dart';
 
 void main() => runApp(MyApp());
 
@@ -8,9 +8,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'SharedPreferences',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+      theme: ThemeData(primarySwatch: Colors.blue),
       home: LoginPage(),
     );
   }

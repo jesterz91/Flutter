@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:persistence/home_page.dart';
+import 'package:persistence/screen/main_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPage extends StatefulWidget {
@@ -86,7 +86,7 @@ class _LoginPageState extends State<LoginPage> {
     if (username.text.length != 0 && password.text.length != 0) {
       _saveLogin(checkValue);
       Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(builder: (BuildContext context) => HomePage()),
+          MaterialPageRoute(builder: (BuildContext context) => MainPage()),
               (Route<dynamic> route) => false);
     } else {
       showDialog(context: context, builder: (context) {
